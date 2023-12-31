@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = localStorage.getItem('cart')
-  ? JSON.parse(localStorage.getItem('cart'))
+  ? JSON.parse(localStorage.getItem('cart')) //1) getting items from local storage, allows us to keep the products in the cart. 2) when are we putting items in local storage? check line no 54
   : { cartItems: [] };
 
 const addDecimals = (num) => {
