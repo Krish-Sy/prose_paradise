@@ -4,11 +4,18 @@ import { apiSlice } from "./apiSlice";
 //Since we're using async functions, we're injecting into apiSlice for builder and endpoints
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({ //builder has query method using which we can get queries being passed from backend i.e (product_url)
+    // getProducts: builder.query({ --> before pagination
+    //   query: () => ({
+    //     url: PRODUCTS_URL,
+    //   }),
     getProducts: builder.query({
-      query: () => ({
+      query: ({pageNumber}) => ({
         url: PRODUCTS_URL,
+        params: {
+          pageNumber
+        }
       }),
-      providesTags: ['Products'], //Without this, we may have to rename the page
+      providesTags: ['Products'], //Without this, we may have to reload the page
       keepUnusedDataFor: 5
     }),
     getProductDetails: builder.query({
