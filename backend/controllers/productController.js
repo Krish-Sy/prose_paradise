@@ -5,11 +5,24 @@ import Product from '../models/productModel.js';
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 12;
+  const pageSize = 8;
   const page = Number(req.query.pageNumber) || 1;
 
-  const count = await Product.countDocuments();
-  const products = await Product.find()
+  const keyword = req.query.keyword
+  ? {
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i', //makes it case insensitive
+      },
+    }
+  : {}; //For search implementation
+//${...}: This syntax is often used in programming languages like JavaScript for string interpolation. It allows you to embed expressions inside a string. The expression inside the curly braces is evaluated, and the result is inserted into the string.
+//regex: This stands for Regular Expression. Regular expressions are a powerful tool for matching patterns in text. They are used for a variety of tasks like searching, replacing, and validating strings.
+
+//So, when you see ${regex}, it suggests that a regular expression is being inserted into a string through interpolation. This could be part of a larger code where the regular expression is being dynamically generated or modified before being used in a string context. The exact behavior and use would depend on the specific programming language and the surrounding code.
+
+  const count = await Product.countDocuments({...keyword});
+  const products = await Product.find({...keyword})
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
@@ -130,6 +143,16 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get top rated products
+// @route   GET /api/products/top
+// @access  Public
+const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+  res.status(200).json(products);
+});
+
+
 export {
   getProducts,
   getProductById,
@@ -137,4 +160,5 @@ export {
   updateProduct,
   deleteProduct,
   createProductReview,
+  getTopProducts,
 };

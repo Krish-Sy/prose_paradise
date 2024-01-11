@@ -9,10 +9,11 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     //     url: PRODUCTS_URL,
     //   }),
     getProducts: builder.query({
-      query: ({pageNumber}) => ({
+      query: ({keyword, pageNumber}) => ({
         url: PRODUCTS_URL,
         params: {
-          pageNumber
+          pageNumber,
+          keyword
         }
       }),
       providesTags: ['Products'], //Without this, we may have to reload the page
@@ -61,6 +62,10 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Product'],
     }),
+    getTopProducts: builder.query({
+      query: () => `${PRODUCTS_URL}/top`,
+      keepUnusedDataFor: 5,
+    }),
   }),
 });
 
@@ -71,6 +76,7 @@ export const {
   useUpdateProductMutation,
   useUploadProductImageMutation,
   useDeleteProductMutation,
-  useCreateReviewMutation
+  useCreateReviewMutation,
+  useGetTopProductsQuery,
 } = productsApiSlice;
 //useGetProductsQuery is a convention we follow. (Adding use and query beind getProducts fn)

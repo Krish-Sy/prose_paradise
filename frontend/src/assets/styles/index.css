@@ -10,6 +10,14 @@ main {
   color: #f8e825;
 }
 
+.header_custom {
+  background-color: #093444
+}
+
+.carousel-custom {
+  background-color: #093444
+}
+
 .rating-text {
   font-size: 0.8rem;
   font-weight: 600;
@@ -51,3 +59,7 @@ table th {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
 }
+
+/* .latest-products {
+  color: #effef5;
+} */

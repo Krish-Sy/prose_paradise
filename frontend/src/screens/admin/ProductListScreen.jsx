@@ -74,7 +74,7 @@ const ProductListScreen = () => {
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>GENRE</th>
-                <th>PUBLICATION</th>
+                {/* <th>PUBLICATION</th> */}
                 <th></th>
               </tr>
             </thead>
@@ -85,7 +85,7 @@ const ProductListScreen = () => {
                   <td>{product.name}</td>
                   <td>${product.price}</td>
                   <td>{product.genre}</td>
-                  <td>{product.publication}</td>
+                  {/* <td>{product.publication}</td> */}
                   <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
                       <Button variant='light' className='btn-sm mx-2'>
